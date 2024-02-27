@@ -1,9 +1,11 @@
 local M = {}
 
+print("loaded")
 
-function M.setup(opt)
+function M.setup(opts)
+	opts = opts or {}
 	print("setup")
-	options = opt
+	vim.keymap.set("v", "<Leader>l", rewrite())
 end
 
 --utils?

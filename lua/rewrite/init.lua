@@ -3,12 +3,14 @@ local M = {}
 print("loaded")
 
 
-local function go()
+ function M.go()
 	print(".")
 end
 
 function M.setup()
-	vim.keymap.set("n", "<leader>l", go())
+	vim.keymap.set("n", "<leader>l", function()
+		print("test")
+	end)
 	print('setup')
 end
 

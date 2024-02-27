@@ -58,7 +58,7 @@ local function rewrite()
 end
 
 function M.setup()
-	vim.keymap.set("n", "<leader>l", function()
+	vim.keymap.set("v", "<leader>l", function()
 		rewrite()
 	end)
 	print('setup')

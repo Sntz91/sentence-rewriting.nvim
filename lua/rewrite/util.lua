@@ -19,7 +19,7 @@ end
 function Utils.get_command(selection)
 	local preprompt = "Rewrite the following sentences: "
 	local input = preprompt .. selection
-	local command = 'python main.py "' .. input .. '"'
+	local command = 'python $HOME/Projects/sentence-rewriting/main.py "' .. input .. '"'
 	return command
 end
 

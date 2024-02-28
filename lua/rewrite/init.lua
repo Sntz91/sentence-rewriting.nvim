@@ -1,4 +1,4 @@
-local Utils = require("lua.rewrite.util")
+local Utils = require("rewrite.util")
 local M = {}
 
 local function rewrite()

@@ -1,7 +1,15 @@
 # sentence-rewriting.nvim
-Use LLMs to rewrite sentences within neovim.
-TODO:
-- README.
-- Model as Option, hotkeys self choosable??
-- use <leader>-l to.
-- Another hotkey for asking a arbritrary prompt.
+Simple Plugin that uses a local LLM to rewrite sentences within neovim.
+
+## Preqrequisites
+Ollama must be installed.
+
+## Usage
+- use <leader>-lr in visual mode to rewrite your selection
+- use <leader>-lp in normal mode to prompt the LLM for anything
+
+## TODOs
+- Gif.
+- Options for model / hotkeys.
+
+

@@ -3,24 +3,42 @@ local M = {}
 
 local function rewrite()
 	local selection = Utils.get_visual_selection()
-	selection = Utils.clean_selection(selection)
+	selection = Utils.clean_prompt(selection)
 
 	if string.len(selection) < 30 then
-		print("string too short..")
+		print("string too short...")
 		return
 	end
 
-	local command = Utils.get_command(selection)
+	local preprompt = "Rewrite the following sentences: "
+	local prompt = preprompt .. selection
+	local command = Utils.get_llm_command(prompt)
 	local result = Utils.execute_command(command)
 	Utils.open_text_in_split(result)
 end
 
-function M.setup()
-	vim.keymap.set("v", "<leader>l", function()
-		rewrite()
+local function prompt_llm()
+	vim.ui.input({ prompt = "Enter prompt: "}, function(input)
+		input = Utils.clean_prompt(input)
+		if string.len(input) < 2 then
+			print("string too short...")
+			return
+		end
+		local command = Utils.get_llm_command(input)
+		local result = Utils.execute_command(command)
+		Utils.open_text_in_split(result)
 	end)
 end
 
-M.setup()
+function M.setup()
+	vim.keymap.set("v", "<leader>lr", function()
+		rewrite()
+	end)
+	vim.keymap.set("n", "<leader>lp", function()
+		prompt_llm()
+	end)
+end
+
+--M.setup()
 
 return M

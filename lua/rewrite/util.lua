@@ -16,23 +16,18 @@ function Utils.open_text_in_split(text)
 	vim.cmd('normal! gg')
 end
 
-function Utils.get_command(selection)
-	local preprompt = "Rewrite the following sentences: "
-	local input = preprompt .. selection
-	-- local command = 'python $HOME/Projects/sentence-rewriting/main.py "' .. input .. '"'
-	local command = 'ollama run llama2 "' .. input .. '"'
+function Utils.get_llm_command(prompt)
+	local command = 'ollama run llama2 "' .. prompt .. '"'
 	return command
 end
 
-
-function Utils.clean_selection(selection)
+function Utils.clean_prompt(prompt)
 	-- get rid of control characters like ^I
-	local cleansed_selection = selection:gsub("%c", " ")
+	local cleansed_prompt = prompt:gsub("%c", " ")
 	-- get rid of double quotes 
-	cleansed_selection = cleansed_selection:gsub('"', "'")
-	return cleansed_selection
+	cleansed_prompt = cleansed_prompt:gsub('"', "'")
+	return cleansed_prompt
 end
-
 
 function Utils.execute_command(command)
 	local handle = io.popen(command)

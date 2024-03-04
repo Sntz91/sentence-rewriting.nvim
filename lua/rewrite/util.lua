@@ -16,6 +16,11 @@ function Utils.open_text_in_split(text)
 	vim.cmd('normal! gg')
 end
 
+function Utils.get_llm_command_server(prompt, server)
+	local command = 'curl http://'..server..'/api/generate -d \'{ "model": "llama2", "prompt": "' .. prompt .. '", "stream": false}\''
+	return command
+end
+
 function Utils.get_llm_command(prompt)
 	local command = 'ollama run llama2 "' .. prompt .. '"'
 	return command
@@ -25,14 +30,18 @@ function Utils.clean_prompt(prompt)
 	-- get rid of control characters like ^I
 	local cleansed_prompt = prompt:gsub("%c", " ")
 	-- get rid of double quotes 
-	cleansed_prompt = cleansed_prompt:gsub('"', "'")
+	cleansed_prompt = cleansed_prompt:gsub('"', '\\"')
+	cleansed_prompt = cleansed_prompt:gsub("'", "\\'")
 	return cleansed_prompt
 end
 
 function Utils.execute_command(command)
+	local json = require("lunajson")
 	local handle = io.popen(command)
-	local result = handle:read("*a")
+	local response = handle:read("*a")
 	handle:close()
+	local data = json.decode(response)
+	local result = data["response"]
 	return result
 end
 

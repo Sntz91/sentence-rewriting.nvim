@@ -31,7 +31,7 @@ function Utils.clean_prompt(prompt)
 	local cleansed_prompt = prompt:gsub("%c", " ")
 	-- get rid of double quotes 
 	cleansed_prompt = cleansed_prompt:gsub('"', '\\"')
-	cleansed_prompt = cleansed_prompt:gsub("'", "\\'")
+	cleansed_prompt = cleansed_prompt:gsub("'", "'\\''")
 	return cleansed_prompt
 end
 
